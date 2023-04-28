@@ -168,7 +168,80 @@ class Part3Controller (object):
     msg.match.dl_type = 0x800
 
 
-    #h10 to server1
+    #h10 to server1 
+    msg = of.ofp_flow_mod()
+    msg.match.nw_src = IPAddr("10.0.1.10")
+    msg.match.nw_dst = IPAddr("10.0.4.10")
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    msg.match.tp_dst = None
+    msg.match.tp_src = None
+    msg.match.dl_type = 0x800
+
+
+    #h20 to server1 
+    msg = of.ofp_flow_mod()
+    msg.match.nw_src = IPAddr("10.0.2.20")
+    msg.match.nw_dst = IPAddr("10.0.4.10")
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    msg.match.tp_dst = None
+    msg.match.tp_src = None
+    msg.match.dl_type = 0x800
+
+    #h30 to server1 
+    msg = of.ofp_flow_mod()
+    msg.match.nw_src = IPAddr("10.0.3.30")
+    msg.match.nw_dst = IPAddr("10.0.4.10")
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    msg.match.tp_dst = None
+    msg.match.tp_src = None
+    msg.match.dl_type = 0x800
+
+    #hnottrust connecting to server1
+    msg = of.ofp_flow_mod()
+    msg.match.nw_src = IPAddr("172.16.10.100")
+    msg.match.nw_dst = IPAddr("10.0.4.10")
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    msg.match.tp_dst = None
+    msg.match.tp_src = None
+    msg.match.dl_type = 0x800
+
+    #h10 connecting to hnottrust 
+    msg = of.ofp_flow_mod()
+    msg.match.nw_src = IPAddr("10.0.1.10")
+    msg.match.nw_dst = IPAddr("172.16.10.100")
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    msg.match.tp_dst = None
+    msg.match.tp_src = None
+    msg.match.dl_type = 0x800
+
+
+    #h20 connecting to hnottrust 
+    msg = of.ofp_flow_mod()
+    msg.match.nw_src = IPAddr("10.0.2.20")
+    msg.match.nw_dst = IPAddr("172.16.10.100")
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    msg.match.tp_dst = None
+    msg.match.tp_src = None
+    msg.match.dl_type = 0x800
+
+    
+    #h30 connecting to hnottrust 
+    msg = of.ofp_flow_mod()
+    msg.match.nw_src = IPAddr("10.0.3.30")
+    msg.match.nw_dst = IPAddr("172.16.10.100")
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    msg.match.tp_dst = None
+    msg.match.tp_src = None
+    msg.match.dl_type = 0x800
+
+    #server1 connecting to hnottrust 
+    msg = of.ofp_flow_mod()
+    msg.match.nw_src = IPAddr("10.0.4.10")
+    msg.match.nw_dst = IPAddr("172.16.10.100")
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    msg.match.tp_dst = None
+    msg.match.tp_src = None
+    msg.match.dl_type = 0x800
   def dcs31_setup(self):
     #put datacenter switch rules here
     pass
