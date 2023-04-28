@@ -1,3 +1,4 @@
+#place this file inside the pox/ext directory to access the libraries
 from pox.core import core
 import pox.openflow.libopenflow_01 as of
 from pox.lib.addresses import IPAddr, IPAddr6, EthAddr
@@ -55,8 +56,119 @@ class Part3Controller (object):
 
   def cores21_setup(self):
     #put core switch rules here
-    pass
+  
+    #h20 connecting to h10
+    msg = of.ofp_flow_mod()
+    msg.match.nw_src = IPAddr("10.0.2.20")
+    msg.match.nw_dst = IPAddr("10.0.1.10")
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    msg.match.tp_dst = None
+    msg.match.tp_src = None
+    msg.match.dl_type = 0x800
+    
+    #h30 connecting to h10
+    msg = of.ofp_flow_mod()
+    msg.match.nw_src = IPAddr("10.0.3.30")
+    msg.match.nw_dst = IPAddr("10.0.1.10")
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    msg.match.tp_dst = None
+    msg.match.tp_src = None
+    msg.match.dl_type = 0x800
 
+    #server1 connecting to h10
+    msg = of.ofp_flow_mod()
+    msg.match.nw_src = IPAddr("10.0.4.10")
+    msg.match.nw_dst = IPAddr("10.0.1.10")
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    msg.match.tp_dst = None
+    msg.match.tp_src = None
+    msg.match.dl_type = 0x800
+
+    #hnottrust connecting to h10 
+    msg = of.ofp_flow_mod()
+    msg.match.nw_src = IPAddr("172.16.10.100")
+    msg.match.nw_dst = IPAddr("10.0.1.10")
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    msg.match.tp_dst = None
+    msg.match.tp_src = None
+    msg.match.dl_type = 0x800
+    
+
+    #h10 connecting to h20
+    msg = of.ofp_flow_mod()
+    msg.match.nw_src = IPAddr("10.0.1.10")
+    msg.match.nw_dst = IPAddr("10.0.2.20")
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    msg.match.tp_dst = None
+    msg.match.tp_src = None
+    msg.match.dl_type = 0x800
+
+    #h30 connecting to h20
+    msg = of.ofp_flow_mod()
+    msg.match.nw_src = IPAddr("10.0.3.30")
+    msg.match.nw_dst = IPAddr("10.0.1.10")
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    msg.match.tp_dst = None
+    msg.match.tp_src = None
+    msg.match.dl_type = 0x800
+
+
+    #server1 connecting to h20
+    msg = of.ofp_flow_mod()
+    msg.match.nw_src = IPAddr("10.0.4.10")
+    msg.match.nw_dst = IPAddr("10.0.2.20")
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    msg.match.tp_dst = None
+    msg.match.tp_src = None
+    msg.match.dl_type = 0x800
+
+    #hnottrust connecting to h20 
+    msg = of.ofp_flow_mod()
+    msg.match.nw_src = IPAddr("172.16.10.100")
+    msg.match.nw_dst = IPAddr("10.0.2.20")
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    msg.match.tp_dst = None
+    msg.match.tp_src = None
+    msg.match.dl_type = 0x800
+
+    #h10 connecting to h30
+    msg = of.ofp_flow_mod()
+    msg.match.nw_src = IPAddr("10.0.1.10")
+    msg.match.nw_dst = IPAddr("10.0.3.30")
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    msg.match.tp_dst = None
+    msg.match.tp_src = None
+    msg.match.dl_type = 0x800
+
+    #h20 connecting to h30
+    msg = of.ofp_flow_mod()
+    msg.match.nw_src = IPAddr("10.0.2.20")
+    msg.match.nw_dst = IPAddr("10.0.3.30")
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    msg.match.tp_dst = None
+    msg.match.tp_src = None
+    msg.match.dl_type = 0x800
+
+    #server1 connecting to h30
+    msg = of.ofp_flow_mod()
+    msg.match.nw_src = IPAddr("10.0.4.10")
+    msg.match.nw_dst = IPAddr("10.0.3.30")
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    msg.match.tp_dst = None
+    msg.match.tp_src = None
+    msg.match.dl_type = 0x800
+
+    #hnottrust connecting to h10 
+    msg = of.ofp_flow_mod()
+    msg.match.nw_src = IPAddr("172.16.10.100")
+    msg.match.nw_dst = IPAddr("10.0.3.30")
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    msg.match.tp_dst = None
+    msg.match.tp_src = None
+    msg.match.dl_type = 0x800
+
+
+    #h10 to server1
   def dcs31_setup(self):
     #put datacenter switch rules here
     pass
