@@ -1,6 +1,6 @@
 from pox.core import core
 import pox.openflow.libopenflow_01 as of
-from pox.lib.addresses import IPAddr,EthAddr
+from pox.lib.addresses import EthAddr
 
 log = core.getLogger()
 
@@ -19,44 +19,43 @@ class Firewall (object):
     
     
     #add switch rules here only
-    # arp = 0x806 
-    
+
   def _handle_ConnectionUp(self, event):
     msg = of.ofp_flow_mod()
-    msg.match.dl_dst = None
-    msg.match.dl_type = 0x806
-   
+    msg.match.dl_dst = None #ethernet destination address
+    msg.match.dl_type = 0x806 #ARP
     msg.match.nw_proto = None
     msg.actions.append(of.ofp_action_output(port = of.OFPP_FLOOD))
     event.connection.send(msg)
     
+   
     msg = of.ofp_flow_mod()
     msg.match.dl_dst = EthAddr('00:00:00:00:00:01')
-    msg.match.dl_type = 0x800
-   
-    msg.match.nw_proto = 1
+    msg.match.dl_type = 0x800 #IPv4
+    msg.match.nw_proto = 1 #ICMP
     msg.actions.append(of.ofp_action_output(port = 1))
     event.connection.send(msg)
-
+    
+    
     msg = of.ofp_flow_mod()
     msg.match.dl_dst = EthAddr('00:00:00:00:00:02')
-    msg.match.dl_type = 0x800
-   
-    msg.match.nw_proto = 1
+    msg.match.dl_type = 0x800 #IPv4
+    msg.match.nw_proto = 1 #ICMP
     msg.actions.append(of.ofp_action_output(port = 2))
     event.connection.send(msg)
 
+    
     msg = of.ofp_flow_mod()
     msg.match.dl_dst = EthAddr('00:00:00:00:00:03')
-    msg.match.dl_type = 0x800
-    msg.match.nw_proto = 1
+    msg.match.dl_type = 0x800 #IPv4
+    msg.match.nw_proto = 1 #ICMP
     msg.actions.append(of.ofp_action_output(port = 3))
     event.connection.send(msg)
 
     msg = of.ofp_flow_mod()
     msg.match.dl_dst = EthAddr('00:00:00:00:00:04')
-    msg.match.dl_type = 0x800
-    msg.match.nw_proto = 1
+    msg.match.dl_type = 0x800 #IPv4
+    msg.match.nw_proto = 1 #ICMP
     msg.actions.append(of.ofp_action_output(port = 4))
     event.connection.send(msg)
 
