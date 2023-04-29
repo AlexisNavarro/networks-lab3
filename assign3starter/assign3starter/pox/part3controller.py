@@ -98,16 +98,7 @@ class Part3Controller (object):
     self.connection.send(msg)
 
 
-    #hnottrust connecting to h10 
-    msg = of.ofp_flow_mod()
-    msg.match.nw_src = IPAddr("172.16.10.100")
-    msg.match.nw_dst = IPAddr("10.0.1.10")
-    msg.match.tp_dst = None
-    msg.match.tp_src = None
-    msg.match.dl_type = 0x800
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
-    self.connection.send(msg)
-
+    
     
 
     #h10 connecting to h20
@@ -124,7 +115,7 @@ class Part3Controller (object):
     #h30 connecting to h20
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("10.0.3.30")
-    msg.match.nw_dst = IPAddr("10.0.1.10")
+    msg.match.nw_dst = IPAddr("10.0.2.20")
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
@@ -144,15 +135,7 @@ class Part3Controller (object):
     self.connection.send(msg)
 
 
-    #hnottrust connecting to h20 
-    msg = of.ofp_flow_mod()
-    msg.match.nw_src = IPAddr("172.16.10.100")
-    msg.match.nw_dst = IPAddr("10.0.2.20")
-    msg.match.tp_dst = None
-    msg.match.tp_src = None
-    msg.match.dl_type = 0x800
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
-    self.connection.send(msg)
+   
 
 
     #h10 connecting to h30
@@ -233,15 +216,7 @@ class Part3Controller (object):
     self.connection.send(msg)
 
 
-    #hnottrust connecting to server1
-    msg = of.ofp_flow_mod()
-    msg.match.nw_src = IPAddr("172.16.10.100")
-    msg.match.nw_dst = IPAddr("10.0.4.10")
-    msg.match.tp_dst = None
-    msg.match.tp_src = None
-    msg.match.dl_type = 0x800
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
-    self.connection.send(msg)
+    
 
 
     #h10 connecting to hnottrust 
@@ -268,15 +243,7 @@ class Part3Controller (object):
 
 
     
-    #h30 connecting to hnottrust 
-    msg = of.ofp_flow_mod()
-    msg.match.nw_src = IPAddr("10.0.3.30")
-    msg.match.nw_dst = IPAddr("172.16.10.100")
-    msg.match.tp_dst = None
-    msg.match.tp_src = None
-    msg.match.dl_type = 0x800
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
-    self.connection.send(msg)
+   
 
 
     #server1 connecting to hnottrust 
