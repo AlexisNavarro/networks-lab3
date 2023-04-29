@@ -1,7 +1,7 @@
 #place this file inside the pox/ext directory to access the libraries
 from pox.core import core
 import pox.openflow.libopenflow_01 as of
-from pox.lib.addresses import IPAddr, IPAddr6, EthAddr
+from pox.lib.addresses import IPAddr
 
 log = core.getLogger()
 
@@ -44,15 +44,24 @@ class Part3Controller (object):
 
   def s1_setup(self):
     #put switch 1 rules here
-    pass
+    msg = of.ofp_flow_mod()
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_FLOOD))
+    self.connection.send(msg)
 
+   
   def s2_setup(self):
     #put switch 2 rules here
-    pass
+    msg = of.ofp_flow_mod()
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_FLOOD))
+    self.connection.send(msg)
+
 
   def s3_setup(self):
     #put switch 3 rules here
-    pass
+    msg = of.ofp_flow_mod()
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_FLOOD))
+    self.connection.send(msg)
+
 
   def cores21_setup(self):
     #put core switch rules here
@@ -61,190 +70,264 @@ class Part3Controller (object):
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("10.0.2.20")
     msg.match.nw_dst = IPAddr("10.0.1.10")
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
     
     #h30 connecting to h10
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("10.0.3.30")
     msg.match.nw_dst = IPAddr("10.0.1.10")
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
 
     #server1 connecting to h10
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("10.0.4.10")
     msg.match.nw_dst = IPAddr("10.0.1.10")
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
 
     #hnottrust connecting to h10 
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("172.16.10.100")
     msg.match.nw_dst = IPAddr("10.0.1.10")
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
     
 
     #h10 connecting to h20
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("10.0.1.10")
     msg.match.nw_dst = IPAddr("10.0.2.20")
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
 
     #h30 connecting to h20
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("10.0.3.30")
     msg.match.nw_dst = IPAddr("10.0.1.10")
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
 
 
     #server1 connecting to h20
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("10.0.4.10")
     msg.match.nw_dst = IPAddr("10.0.2.20")
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
 
     #hnottrust connecting to h20 
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("172.16.10.100")
     msg.match.nw_dst = IPAddr("10.0.2.20")
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
 
     #h10 connecting to h30
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("10.0.1.10")
     msg.match.nw_dst = IPAddr("10.0.3.30")
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
 
     #h20 connecting to h30
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("10.0.2.20")
     msg.match.nw_dst = IPAddr("10.0.3.30")
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
 
     #server1 connecting to h30
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("10.0.4.10")
     msg.match.nw_dst = IPAddr("10.0.3.30")
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
 
     #hnottrust connecting to h10 
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("172.16.10.100")
     msg.match.nw_dst = IPAddr("10.0.3.30")
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
 
 
     #h10 to server1 
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("10.0.1.10")
     msg.match.nw_dst = IPAddr("10.0.4.10")
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
 
 
     #h20 to server1 
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("10.0.2.20")
     msg.match.nw_dst = IPAddr("10.0.4.10")
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
 
     #h30 to server1 
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("10.0.3.30")
     msg.match.nw_dst = IPAddr("10.0.4.10")
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
 
     #hnottrust connecting to server1
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("172.16.10.100")
     msg.match.nw_dst = IPAddr("10.0.4.10")
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
 
     #h10 connecting to hnottrust 
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("10.0.1.10")
     msg.match.nw_dst = IPAddr("172.16.10.100")
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
 
 
     #h20 connecting to hnottrust 
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("10.0.2.20")
     msg.match.nw_dst = IPAddr("172.16.10.100")
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
 
     
     #h30 connecting to hnottrust 
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("10.0.3.30")
     msg.match.nw_dst = IPAddr("172.16.10.100")
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
 
     #server1 connecting to hnottrust 
     msg = of.ofp_flow_mod()
     msg.match.nw_src = IPAddr("10.0.4.10")
     msg.match.nw_dst = IPAddr("172.16.10.100")
-    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
     msg.match.tp_dst = None
     msg.match.tp_src = None
     msg.match.dl_type = 0x800
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
+    #ARP
+    msg = of.ofp_flow_mod()
+    msg.match.nw_dst = IPAddr("10.0.1.10")
+    msg.match.dl_type = 0x806
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
+    msg = of.ofp_flow_mod()
+    msg.match.nw_dst = IPAddr("10.0.2.20")
+    msg.match.dl_type = 0x806
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
+    msg = of.ofp_flow_mod()
+    msg.match.nw_dst = IPAddr("10.0.3.30")
+    msg.match.dl_type = 0x806
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
+    msg = of.ofp_flow_mod()
+    msg.match.nw_dst = IPAddr("10.0.4.10")
+    msg.match.dl_type = 0x806
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
+
+    msg = of.ofp_flow_mod()
+    msg.match.nw_dst = IPAddr("172.16.10.100")
+    msg.match.dl_type = 0x806
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_NORMAL))
+    self.connection.send(msg)
+
+
+
   def dcs31_setup(self):
     #put datacenter switch rules here
-    pass
+    msg = of.ofp_flow_mod()
+    msg.actions.append(of.ofp_action_output(port = of.OFPP_FLOOD))
+    self.connection.send(msg)
 
   #used in part 4 to handle individual ARP packets
   #not needed for part 3 (USE RULES!)
