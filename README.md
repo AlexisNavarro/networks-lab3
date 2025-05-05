@@ -1,4 +1,16 @@
-# networks-lab3 Open Flow
+# Networks Lab 3: OpenFlow
 
-The purpose of this lab is to be able to create a connection between hosts and once that connection is established, then the main objective is to implement a set of rules on what packets will be accepted by the hosts, servers
-anything that connects within the network. For this lab, I will be using POX libraries to be able to access the openflow functionality to create rules for packets beign transferred over the network.
+## Overview
+The objective of this lab is to establish a network connection between hosts and then implement rules that control which packets are accepted or dropped by various network components (e.g., hosts, servers).
+
+This lab utilizes the **POX controller** to access OpenFlow functionalities and define custom packet-handling behaviors across the network.
+
+## Goals
+- Establish communication between network hosts.
+- Define and apply packet-filtering rules using the OpenFlow protocol.
+- Control traffic flow within the network based on user-defined rules.
+
+## Technologies Used
+- Python
+- POX Controller
+- OpenFlow
